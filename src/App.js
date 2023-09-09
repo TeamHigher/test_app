@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { useState } from "react";
+import * as Icons from "react-feather";
 
-function App() {
+function MyApp() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Counter />
+    </>
   );
 }
 
-export default App;
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+
+  const generateRandomNumber = () => {
+    const randomValue = Math.floor(Math.random() * 100) + 1;
+    setCount(randomValue);
+  };
+
+  // useEffect(() => {
+  //   document.title = `Count: ${count}`;
+  // }, [count]);
+
+  return (
+    <main className="button-wrapper">
+      <BigCountNumber count={count}/>
+      <button onClick={() => setCount(count + 1)} className="button">
+        <Icons.ChevronUp />
+      </button>
+      <button onClick={() => setCount(count + 10)} className="button">
+        <Icons.ChevronsUp />
+      </button>
+      <button onClick={() => setCount(0)} className="button">
+        <Icons.RotateCcw />
+      </button>
+
+      <button onClick={generateRandomNumber} className="button">
+        <Icons.Hash />
+      </button>
+
+      <button onClick={() => setCount(count - 10)} className="button">
+        <Icons.ChevronsDown />
+      </button>
+      <button onClick={() => setCount(count - 1)} className="button">
+        <Icons.ChevronDown />
+      </button>
+    </main>
+  );
+}
+
+function BigCountNumber({ count }) {
+  return (
+    <div className='subWrapper'>
+      <span className="prefix">Current value:</span>
+      <p className='count'>{count}</p>
+    </div>
+  );
+}
+export default MyApp;
